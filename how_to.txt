@@ -1,0 +1,101 @@
+********************************************************************
+AKADEMIA GÓRNICZO-HUTNICZA im. Stanisława Staszica w Krakowie
+WYDZIAŁ ZARZĄDZANIA
+Projekt: „ Kantor walut ”
+Przedmiot: „Języki skryptowe”
+
+Autor: Anna Kozioł
+Kierunek studiów: Informatyka i Ekonometria
+Rok studiów: I (niestacjonarne)
+Numer indeksu: 403517
+********************************************************************
+
+
+
+
+1.1 CZYM JEST PROGRAM?
+Program zaliczeniowy „Kantor walut” pozwala użytkownikowi sprawdzić kilkadziesiąt aktualnych kursów walut. Kursy te wyświetlane są w tabeli zawierającej takie informacje o nich jak: waluta, kraj, symbol, średni kurs i zmianę procentową. Dane te są pobierane za pomocą web scrapingu z strony internetowej: https://www.bankier.pl/waluty/kursy-walut/nbp 
+Dzięki zaimplementowaniu GUI - PyQ5 – użytkownik oprócz możliwości zobaczenia wyżej opisanych kursów, może również skorzystać z prostego kalkulatora, przelicznika walut. Dzięki tej opcji może wybrać walutę skupu, sprzedaży i kwotę, którą chce wymienić. Program zwróci mu przeliczną aktualną kwotę po przewalutowaniu. Dzięki temu użytkownik w łatwy sposób może czy proces wymiany jest w danym momencie dla niego opłacalny i sprawdzić notowania walut z całego świata.
+Kolejną opcją programu jest zapisywanie aktualnych kursów walut (całej tabeli) w pliku .csv, który może być cenny dla wszelkich analityków danych. Dane te zapisują się z informacją w jakim konkretnie czasie i godzinie powstały (informacja ta zapisywana jest jako osobna komórka w pliku). Dzięki temu, użytkownik może nawet kilka razy dziennie zapisywać kursy walut w jednym pliku, aby móc w późniejszym czasie skontrolować wahania kursów i dokonać różnych analiz. Dane z różnych dni, zapisywane są w różnych plikach.
+
+
+1.2 WYKORZYSTANE TECHNOLOGIE
+
+•	Python wersja 3.8.2
+•	PyQt5 wersja 5.14.2
+•	BeautifulSoup wersja 4.9.0
+
+1.3 JAK URUCHOMIĆ PROGRAM?
+
+a)	Instalacja wymaganych technologii: Python
+•	Pierwszym krokiem jest sprawdzenie czy na urządzeniu zainstalowany jest język python: należy w tym celu uruchomić wiersz poleceń i  wpisać polecenie „python”
+Na powyższym screenie widać, że język ten jest zainstalowany. Jeśli użytkownik nie posiada zanstalowanego języka Python należy pobrać go ze strony i postępować zgodnie z poleceniami instalatora: https://www.python.org/downloads/windows/
+Python w systemie Windows można też zainstalować przez Microsoft Store:
+•	Kolejnym krokiem jest instalacja systemu zarządzania pakietami: pip. W tym celu należy otworzyć wiersz poleceń w miejscu instalacji pythona 
+i wpisać polecenie: python get-pip.py
+
+b)	Instalacja wymaganych technologii: PyQt5
+•	[WINDOWS] Aby zainstalować zbiór bibliotek do tworzenia interfejsów aplikacji okienkowych należy w konsoli wpisać:
+•	pip install PyQt5
+•	[SYSTEMY LINUX OPARTE NA DEBIANIE] Aby zainstalować zbiór bibliotek do tworzenia interfejsów aplikacji okienkowych należy w konsoli wpisać:
+•	sudo apt-get install python3-pyqt5 python3-sip
+•	pacman -S python-pyqt5 python-sip
+•	[WSZYSTKIE SYSTEMY] PyQt5 można zainstalować również przez pobranie plików bezpośrednio ze strony https://pypi.org/project/PyQt5/#files
+
+
+„PyQt5 to kompleksowy zestaw wiązań Pythona dla Qt v5. Jest on zaimplementowany jako ponad 35 modułów rozszerzeń i umożliwia używanie Pythona jako alternatywnego języka programowania aplikacji do C++ na wszystkich obsługiwanych platformach, w tym iOS i Android.”
+~ https://pypi.org/project/PyQt5/
+
+Klasy PyQt5 są podzielone na kilka modułów, w tym na następujące: QtCore, QtGui, QtWidgets, QtMultimedia, QtBluetooth, QtNetwork, QtPositioning, Enginio, QtWebSockets,  QtWebKit, QtWebKitWidgets, QtXml, QtSvg, QtSql, QtTest.
+~ http://zetcode.com/gui/pyqt5/introduction/
+
+
+c)	Instalacja wymaganych technologii: Request, BeautifulSoup
+•	Aby zainstalować te technologie należy w konsoli wpisać kolejno polecenia:
+•	python -m pip install requests
+•	pip install beautifulsoup4
+
+d)	Uruchomienie programu: 
+•	W konsoli (system Windows)
+•	Otworzyć folder, gdzie znajdują się pliki programu
+•	Naciskając równocześnie przycisk „Shift” i prawy przycisk myszy aby otworzyć wiersz poleceń, PowerShell w tej lokalizacji
+ 
+•	Wpisać polecenie „python main.py”
+	 
+•	Program uruchamia się									   
+
+•	W IDE wystarczy otworzyć ten projekt i odnaleźć przycisk play, aby go uruchomić
+•	Visual Studio Code (po doinstalowaniu dodatku „Python 2020.5.80290)
+
+Zainstalowanie wymaganego dodatku:
+Aby uruchomić program, po jego otwarciu należy wcisnąć przycisk „Play”
+
+
+1.4 OPIS OPCJI PROGRAMU
+Kolejne opcje, przyciski zaznaczone są numerami:
+1.	Select „Kupno” został zaimplementowany za pomocą widżetu QComboBox(). Umożliwia on wybranie on waluty kupna. Dane renderowane są do niego za pomocą pętli po wcześniej stworzonej tablicy z pobranymi danymi za pomocą web scrapingu.
+2.	Analogicznie select „Sprzedaż” umożliwia wybranie waluty sprzedaży, tj. waluty na którą użytkownik chce wymienić swój kapitał
+3.	Pole „Ilość” zrealizowane za pomocą widżetu QLineEdit() pozwala użytkownikowi na wprowadzenie kwoty którą chce wymienić – w formacie 100.24 
+Pole to jest zabezpieczone w programie przed błędnie wpisanymi danymi. Jeśli użytkownik nie wpisze w nie liczby pojawi się komunikat 
+oraz mechanizm przeliczania walut nie zostanie uruchomiony:
+4.	Przycisk „Oblicz” – widżet QPushButton - uruchamia funkcje przeliczającą aktualne przewalutowanie wpisanej ilości pieniędzy na wybrane w selectach waluty. 
+5.	W tym polu po naciśnięciu przycisku z pkt. 4 i uzupełnieniu wymaganych, wcześniej opisanych pól pojawi się wynik – ilość pieniędzy, którą  aktualnie otrzymałby użytkownik po wymienia określonej ilości pieniędzy z jednej waluty na drugą.  Wynik pojawia się w formie:
+ 
+Czyli użytkownik po wymianie 1000.00 polskich złotówek [PLN] w kantorze otrzyma około 234,26  franków szwajcarskich [CHF]
+6.	W programie znajduję się również tabela ze  wszystkimi danymi: Nazwa waluty, Państwo, Symbol, Średni kurs, Zmiana %, które zostały pobrane do tablicy. W celu ich wyświetlenia w kodzie użyto widżetu QTableWidget(). W celu lepszego zobrazowania graficznego danych, ostania kolumna, tj. zmiana %, została pokolorowana za pomocą funkcji QtGui.QColor na czerwono, jeśli zmiana jest mniejsza od 0 lub na zielono jeśli zmiana ta jest większa bądź równa 0.
+7.	Przycisk „Zapisz kursy do pliku csv” wywołuje funkcję, która zapisuje wszystkie dane z tablicy (wyświetlone w tabeli z pkt. 6) zgodnie  ze standardem plików .csv – tj. jako wiersze, w których poszczególne dane oddzielone są znakiem „ , ”. Dzięki zastosowaniu trybu zapisu „ a+ ” dane z poszczególnego dnia zapisywane są w jednym pliku w lokalizacji pliku programu. Zapisywany jest on jako „salesDATA_ZAPISU.csv”.  
+	Jeśli użytkownik kilkukrotnie w ciągu jednego dnia zapisze dane, będą one zapisywane w pliku csv jako jedne pod drugim, gdzie pierwszy dzień danego bloku danych będzie zawierał dokładną datę i godzinę pobrania /zapisania aktualnych kursów walut.	 
+	Natomiast dane z różnych dni zapisywane są w osobnych plikach. Tak pobrane dane z programu mogą być pomocne w celu analizy danych, kursów walut w poszczególnych okresach.
+	Po  poprawnym zapisaniu pliku pojawia się użytkownikowi komunikat:	 
+8.	Przycisk „Zakończ działanie programu” pozwala zakończyć działanie programu  i jego zamknięcie. Jednak po naciśnięciu go przez użytkownika początkowo  pojawia się komunikat, który pyta czy na pewno zamknąć program. Po wybraniu „Yes”  program zamyka się,  po wybraniu „No” dymek znika, pozwalając kontynuować dalsze używanie programu.
+
+
+Cały interfejs GUI tej aplikacji został stworzony za pomocą widżetów z PyQt5.
+
+
+1.5 LICENCJA
+Projekt ten jest stworzony w oparciu o licencję MIT.
+
+
+1.6 AUTOR
+Anna Kozioł
